@@ -1,0 +1,5 @@
+/target
+/log
+/src/problem/*?
+!/src/problem/mod.rs
+.DS_Store
