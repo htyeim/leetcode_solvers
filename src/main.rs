@@ -1,7 +1,7 @@
 use leetcode_solvers::crawler;
-
+use leetcode_solvers::util::logger;
 use log::info;
-use log4rs;
+
 use std::env;
 use std::process;
 
@@ -13,7 +13,7 @@ async fn main() {
     });
 
     dbg!(&config);
-    log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
+    logger::init_logger();
     info!("start test ...");
     match config.cmd.as_str() {
         "all" => crawler::leetcode_local::build_all_problems(100).await,

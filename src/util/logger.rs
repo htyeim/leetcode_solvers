@@ -1,8 +1,10 @@
 use log4rs;
+use std::sync::atomic::{AtomicBool, Ordering};
 
 pub fn init_logger() {
-    static INITIALIZED: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
-    if INITIALIZED.load(std::sync::atomic::Ordering::Relaxed) {
+    static INITIALIZED: AtomicBool = AtomicBool::new(false);
+    if !INITIALIZED.load(Ordering::Relaxed) {
         log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
+        INITIALIZED.store(true, Ordering::Relaxed);
     }
 }

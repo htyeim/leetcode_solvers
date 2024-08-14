@@ -1,11 +1,8 @@
 /**
- * [__PROBLEM_ID__] __PROBLEM_TITLE__
- *
- * __PROBLEM_DESC__
- */
+[__PROBLEM_ID__] __PROBLEM_TITLE__
 
-use log::{info};
-use log4rs;
+__PROBLEM_DESC__
+*/
 
 pub struct Solution {}__EXTRA_USE__
 
@@ -22,13 +19,13 @@ __PROBLEM_DEFAULT_CODE__
 #[cfg(test)]
 mod tests {
     use super::*;
+    
     use crate::util::logger;
+    use log::info;
     #[test]
     fn test___PROBLEM_ID__() {
-        logger::init_file();
-        
+        logger::init_logger();
         info!("test start ...");
-
 
         info!("test end===============");
     }

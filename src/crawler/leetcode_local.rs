@@ -1,6 +1,8 @@
 use super::leetcode_problems::{get_problem, get_problem_by_id, get_problems};
 use super::leetcode_problems::{CodeDefinition, Problem, StatWithStatus};
 
+use html2md::parse_html;
+
 use regex::Regex;
 use std::fs::File;
 
@@ -188,44 +190,14 @@ fn insert_return_in_code(_return_type: &str, code: &str) -> String {
     let re = Regex::new(r"struct Solution \{[\t \n]*\}\n").unwrap();
     let code = re.replace(&code, "\n").to_string();
     let re_fn = Regex::new(r"\n([ ]+(\w* )*fn [^\{]+)\{[\t \n]+\}").unwrap();
-    let out_code = re_fn.replace_all(&code, "\n// $1 {}").to_string();
+    let out_code = re_fn.replace_all(&code, "\n///doc\n// $1 {}").to_string();
     // info!("{}", out_code);
     return out_code;
 }
 
 fn build_desc(content: &str) -> String {
-    // TODO: fix this shit
-    content
-        .replace("<strong>", "")
-        .replace("</strong>", "")
-        .replace("<em>", "")
-        .replace("</em>", "")
-        .replace("</p>", "")
-        .replace("<p>", "")
-        .replace("<b>", "")
-        .replace("</b>", "")
-        .replace("<pre>", "")
-        .replace("</pre>", "")
-        .replace("<ul>", "")
-        .replace("</ul>", "")
-        .replace("<li>", "")
-        .replace("</li>", "")
-        .replace("<code>", "")
-        .replace("</code>", "")
-        .replace("<i>", "")
-        .replace("</i>", "")
-        .replace("<sub>", "")
-        .replace("</sub>", "")
-        .replace("</sup>", "")
-        .replace("<sup>", "^")
-        .replace("&nbsp;", " ")
-        .replace("&gt;", ">")
-        .replace("&lt;", "<")
-        .replace("&quot;", "\"")
-        .replace("&minus;", "-")
-        .replace("&#39;", "'")
-        .replace("\n\n", "\n")
-        .replace("\n", "\n * ")
+    let ret = parse_html(&content);
+    return ret;
 }
 
 fn check_problem_file_existed(question_id: u32, title_slug: &String) -> bool {
@@ -292,6 +264,7 @@ fn deal_problem(problem: &Problem, code: &CodeDefinition, write_mod_file: bool) 
 }
 
 pub async fn deal_solving(id: i32) {
+    info!("deal_solving {:?}", id);
     if id < 1 {
         return;
     }
@@ -336,7 +309,7 @@ pub async fn deal_solving(id: i32) {
         .append(true)
         .open("./src/solution/mod.rs")
         .unwrap();
-    writeln!(lib_file, "mod {};", solution_name).unwrap();
+    writeln!(lib_file, "pub mod {};", solution_name).unwrap();
 }
 
 #[cfg(test)]
@@ -368,7 +341,7 @@ mod test {
 
     #[ignore]
     #[test]
-    fn test() {
+    fn test_build_all_problems() {
         logger::init_logger();
         info!("start test ...");
         for number in 1..40 {
@@ -380,6 +353,23 @@ mod test {
             thread::sleep(Duration::from_secs(10));
             // break;
         }
+        info!("end test===============");
+    }
+
+    #[ignore]
+    #[test]
+    fn test_build_all_problems_only_one() {
+        logger::init_logger();
+        info!("start test ... test_build_all_problems_only_one",);
+
+        info!("for {}", 0);
+        let ret = async {
+            build_all_problems(1).await;
+        };
+        tokio::runtime::Runtime::new().unwrap().block_on(ret);
+        thread::sleep(Duration::from_secs(10));
+        // break;
+
         info!("end test===============");
     }
 }
