@@ -16,7 +16,7 @@ async fn main() {
     logger::init_logger();
     info!("start test ...");
     match config.cmd.as_str() {
-        "all" => crawler::leetcode_local::build_all_problems(100).await,
+        "all" => crawler::leetcode_local::build_all_problems(100, None).await,
         "solve" => crawler::leetcode_local::deal_solving(config.problem_id).await,
         _ => println!("Something else"),
     }

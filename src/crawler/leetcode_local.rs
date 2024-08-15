@@ -4,6 +4,7 @@ use super::leetcode_problems::{CodeDefinition, Problem, StatWithStatus};
 use html2md::parse_html;
 
 use regex::Regex;
+
 use std::fs::File;
 
 use std::thread;
@@ -20,7 +21,7 @@ use std::sync::{Arc, Mutex};
 
 const ROOT_PATH: &str = "./";
 
-pub async fn build_all_problems(expect_count: i32) {
+pub async fn build_all_problems(expect_count: i32, id: Option<u32>) {
     let problems = get_problems().await;
     let mod_file_addon = Arc::new(Mutex::new(vec![]));
     let initialized_ids = get_initialized_ids();
@@ -30,6 +31,11 @@ pub async fn build_all_problems(expect_count: i32) {
     for problem_stat in problems.stat_status_pairs.iter() {
         if initialized_ids.contains(&problem_stat.stat.frontend_question_id) {
             continue;
+        }
+        if let Some(target_id) = id {
+            if problem_stat.stat.frontend_question_id != target_id {
+                continue;
+            }
         }
         // 0594 solution fn
         info!("problem id: {}", problem_stat.stat.frontend_question_id);
@@ -280,7 +286,11 @@ pub async fn deal_solving(id: i32) {
         Path::new(&format!("{}./src/problem", ROOT_PATH)).join(format!("{}.rs", file_name));
     // check problem/ existence
     if !file_path.exists() {
-        panic!("problem does not exist");
+        build_all_problems(0, id.try_into().unwrap()).await;
+    }
+    if !file_path.exists() {
+        log::error!("problem does not exist: {}", id);
+        return;
     }
     // check solution/ no existence
     let solution_name = format!(
@@ -347,7 +357,7 @@ mod test {
         for number in 1..40 {
             info!("for {}", number);
             let ret = async {
-                build_all_problems(50).await;
+                build_all_problems(50, None).await;
             };
             tokio::runtime::Runtime::new().unwrap().block_on(ret);
             thread::sleep(Duration::from_secs(10));
@@ -364,7 +374,7 @@ mod test {
 
         info!("for {}", 0);
         let ret = async {
-            build_all_problems(1).await;
+            build_all_problems(100, None).await;
         };
         tokio::runtime::Runtime::new().unwrap().block_on(ret);
         thread::sleep(Duration::from_secs(10));
