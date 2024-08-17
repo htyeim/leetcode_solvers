@@ -300,8 +300,10 @@ pub async fn deal_solving(id: i32) {
     );
     let solution_path =
         Path::new(&format!("{}./src/solution", ROOT_PATH)).join(format!("{}.rs", solution_name));
+    info!("path: {:?}", solution_path.to_str());
     if solution_path.exists() {
-        panic!("solution exists");
+        warn!("solution exists {}", id);
+        return;
     }
     // rename/move file
     fs::rename(file_path, solution_path).unwrap();
