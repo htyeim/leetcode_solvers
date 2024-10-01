@@ -1,10 +1,15 @@
+use log::info;
 use log4rs;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::OnceLock;
+
+static INITIALIZED: OnceLock<bool> = OnceLock::new();
 
 pub fn init_logger() {
-    static INITIALIZED: AtomicBool = AtomicBool::new(false);
-    if !INITIALIZED.load(Ordering::Relaxed) {
+    // static INITIALIZED: Arc<Mutex<AtomicBool>> = Arc::new(Mutex::new(AtomicBool::new(false)));
+    let _ = INITIALIZED.get_or_init(|| {
         log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
-        INITIALIZED.store(true, Ordering::Relaxed);
-    }
+
+        info!("inited");
+        return true;
+    });
 }
