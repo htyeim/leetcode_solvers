@@ -9,7 +9,7 @@ A mapping of digits to letters (just like on the telephone buttons) is given bel
 
 **Example 1:**
 
-```
+```sh
 Input: digits = "23"
 Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 
@@ -17,7 +17,7 @@ Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 
 **Example 2:**
 
-```
+```sh
 Input: digits = ""
 Output: []
 
@@ -25,7 +25,7 @@ Output: []
 
 **Example 3:**
 
-```
+```sh
 Input: digits = "2"
 Output: ["a","b","c"]
 

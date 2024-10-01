@@ -10,7 +10,7 @@ Return *a list of all possible valid combinations*. The list must not contain th
 
 **Example 1:**
 
-```
+```sh
 Input: k = 3, n = 7
 Output: [[1,2,4]]
 Explanation:
@@ -20,7 +20,7 @@ There are no other valid combinations.
 
 **Example 2:**
 
-```
+```sh
 Input: k = 3, n = 9
 Output: [[1,2,6],[1,3,5],[2,3,4]]
 Explanation:
@@ -33,7 +33,7 @@ There are no other valid combinations.
 
 **Example 3:**
 
-```
+```sh
 Input: k = 4, n = 1
 Output: []
 Explanation: There are no valid combinations.

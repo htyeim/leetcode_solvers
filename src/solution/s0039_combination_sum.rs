@@ -9,7 +9,7 @@ The test cases are generated such that the number of unique combinations that su
 
 **Example 1:**
 
-```
+```sh
 Input: candidates = [2,3,6,7], target = 7
 Output: [[2,2,3],[7]]
 Explanation:
@@ -21,7 +21,7 @@ These are the only two combinations.
 
 **Example 2:**
 
-```
+```sh
 Input: candidates = [2,3,5], target = 8
 Output: [[2,2,2,2],[2,3,3],[3,5]]
 
@@ -29,7 +29,7 @@ Output: [[2,2,2,2],[2,3,3],[3,5]]
 
 **Example 3:**
 
-```
+```sh
 Input: candidates = [2], target = 1
 Output: []
 

@@ -5,7 +5,7 @@ Given a string `s`, partition `s` such that every substring of the partition is 
 
 **Example 1:**
 
-```
+```sh
 Input: s = "aab"
 Output: [["a","a","b"],["aa","b"]]
 
@@ -13,7 +13,7 @@ Output: [["a","a","b"],["aa","b"]]
 
 **Example 2:**
 
-```
+```sh
 Input: s = "a"
 Output: [["a"]]
 

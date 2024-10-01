@@ -9,3 +9,4 @@ pub mod s0017_letter_combinations_of_a_phone_number;
 pub mod s0039_combination_sum;
 pub mod s0040_combination_sum_ii;
 pub mod s0131_palindrome_partitioning;
+pub mod s0016_3sum_closest;

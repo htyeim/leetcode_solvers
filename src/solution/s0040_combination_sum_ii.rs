@@ -11,7 +11,7 @@ Each number in `candidates` may only be used **once** in the combination.
 
 **Example 1:**
 
-```
+```sh
 Input: candidates = [10,1,2,7,6,1,5], target = 8
 Output:
 [
@@ -25,7 +25,7 @@ Output:
 
 **Example 2:**
 
-```
+```sh
 Input: candidates = [2,5,2,1,2], target = 5
 Output:
 [
@@ -68,7 +68,7 @@ impl Solution {
         for i in start..candidates.len() {
             let curr_val = *candidates.get(i).unwrap();
             if let Some(last_val) = last_val {
-                if (last_val == curr_val) {
+                if last_val == curr_val {
                     continue;
                 }
             }

@@ -202,7 +202,8 @@ fn insert_return_in_code(_return_type: &str, code: &str) -> String {
 }
 
 fn build_desc(content: &str) -> String {
-    let ret = parse_html(&content);
+    let content = content.replace("<pre>", "<pre>REPLACE_FLAG");
+    let ret = parse_html(&content).replace("\nREPLACE_FLAG", "sh");
     return ret;
 }
 
