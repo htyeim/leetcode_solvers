@@ -54,3 +54,17 @@ impl Config {
         })
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    // #[ignore]
+    #[test]
+    #[ignore = "not yet implemented"]
+    fn test_main() {
+        info!("start test ...");
+        let ret = main();
+        info!("{:?}", ret);
+        info!("end test===============");
+    }
+}
