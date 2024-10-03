@@ -10,3 +10,4 @@ pub mod s0039_combination_sum;
 pub mod s0040_combination_sum_ii;
 pub mod s0131_palindrome_partitioning;
 pub mod s0016_3sum_closest;
+pub mod s0093_restore_ip_addresses;
